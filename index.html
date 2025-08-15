@@ -1,0 +1,171 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login - Portal do Estudante</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --bg-main: #f0f2f5;
+            --bg-card: #ffffff;
+            --text-primary: #333333;
+            --primary-color: #3a86ff;
+            --primary-dark: #005cbb;
+            --danger-color: #ff3b30;
+            --border-color: #d1d9e6;
+            --shadow-color: rgba(0, 0, 0, 0.1);
+            --transition-speed: 0.3s;
+        }
+
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+
+        body {
+            font-family: 'Poppins', sans-serif;
+            background-color: var(--bg-main);
+            color: var(--text-primary);
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+        }
+
+        .login-container {
+            max-width: 420px;
+            width: 100%;
+            background-color: var(--bg-card);
+            padding: 40px;
+            border-radius: 20px;
+            box-shadow: 0 15px 35px var(--shadow-color);
+            border: 1px solid var(--border-color);
+        }
+
+        .login-header {
+            text-align: center;
+            margin-bottom: 30px;
+        }
+
+        .login-title {
+            font-size: 2rem;
+            font-weight: 700;
+            color: var(--text-primary);
+        }
+
+        .login-subtitle {
+            font-size: 1rem;
+            color: #555;
+            margin-top: 5px;
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        .form-group label {
+            display: block;
+            font-weight: 500;
+            margin-bottom: 8px;
+            font-size: 0.9rem;
+        }
+
+        .form-group input {
+            width: 100%;
+            padding: 12px 15px;
+            border: 1px solid var(--border-color);
+            border-radius: 8px;
+            font-size: 1rem;
+            font-family: 'Poppins', sans-serif;
+            transition: all var(--transition-speed);
+        }
+
+        .form-group input:focus {
+            outline: none;
+            border-color: var(--primary-color);
+            box-shadow: 0 0 0 3px rgba(58, 134, 255, 0.2);
+        }
+
+        .btn {
+            width: 100%;
+            padding: 14px;
+            border: none;
+            border-radius: 8px;
+            font-weight: 600;
+            font-size: 1rem;
+            cursor: pointer;
+            transition: all var(--transition-speed);
+            font-family: 'Poppins', sans-serif;
+        }
+
+        .btn-primary {
+            background-color: var(--primary-color);
+            color: white;
+        }
+
+        .btn-primary:hover {
+            background-color: var(--primary-dark);
+            transform: translateY(-2px);
+            box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+        }
+        
+        .btn-primary:active {
+            transform: translateY(0);
+            box-shadow: none;
+        }
+
+        .error-message {
+            color: var(--danger-color);
+            background-color: rgba(255, 59, 48, 0.1);
+            padding: 10px;
+            border-radius: 8px;
+            text-align: center;
+            margin-top: 20px;
+            font-size: 0.9rem;
+            display: none; /* Inicia oculto */
+            border: 1px solid rgba(255, 59, 48, 0.2);
+        }
+    </style>
+</head>
+<body>
+
+    <div class="login-container">
+        <form id="login-form" novalidate>
+            <div class="login-header">
+                <h1 class="login-title">Acesso ao Portal</h1>
+                <p class="login-subtitle">Utilize os dados fornecidos para entrar</p>
+            </div>
+            <div class="form-group">
+                <label for="login-username">Usuário</label>
+                <input type="text" id="login-username" required autocomplete="username" value="teste">
+            </div>
+            <div class="form-group">
+                <label for="login-password">Senha</label>
+                <input type="password" id="login-password" required autocomplete="current-password" value="12345">
+            </div>
+            <button type="submit" class="btn btn-primary">Entrar</button>
+            <div id="login-error" class="error-message"></div>
+        </form>
+    </div>
+
+    <script>
+        // Seleciona o formulário de login
+        const loginForm = document.getElementById('login-form');
+        
+        // Adiciona um "ouvinte" para o evento de envio do formulário (clicar em "Entrar")
+        loginForm.addEventListener('submit', (e) => {
+            
+            // 1. Impede que a página recarregue, que é o comportamento padrão de um formulário.
+            e.preventDefault();
+            
+            console.log('Botão "Entrar" clicado. Redirecionando para home.html...');
+            
+            // 2. Redireciona o navegador diretamente para a página home.html
+            // CORRIGIDO: O nome do arquivo home também precisa ser .html
+            window.location.href = 'home.html';
+        });
+
+    </script>
+</body>
+</html>
