@@ -2494,8 +2494,24 @@
             }
         }
 
+        // REMOVIDA: function loadNewFile() { location.reload(); }
 
+        document.addEventListener('DOMContentLoaded', () => {
+            quizPage.style.display = 'none'; 
+            resultsPage.style.display = 'none'; // Esconde a página de resultados inicialmente
+            
+            loadEmbeddedQuizAndShowOptions(); // Carrega o simulado embutido e mostra opções
 
+            if (document.body.classList.contains('dark-mode')) {
+                darkModeText.textContent = 'Modo Claro';
+                darkModeTextResults.textContent = 'Modo Claro';
+            } else {
+                darkModeText.textContent = 'Modo Escuro';
+                darkModeTextResults.textContent = 'Modo Escuro';
+            }
+        });
+
+        
     </script>
 </body>
 </html>
