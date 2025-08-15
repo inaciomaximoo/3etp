@@ -43,31 +43,34 @@
         </form>
     </div>
 
-    <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-app.js"></script>
-    <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-auth.js"></script>
-    <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-firestore.js"></script>
+    <script type="module">
+        // Import the functions you need from the SDKs
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js";
+        import { getAuth, signInWithEmailAndPassword, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-auth.js";
+        import { getFirestore, collection, query, where, getDocs, limit } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js";
 
-    <script>
-        // Sua configuração do Firebase
+        // Your web app's Firebase configuration
+        // IMPORTANT: Your API key is public. Ensure you have set up Firebase Security Rules 
+        // for Firestore to protect your data from unauthorized access.
         const firebaseConfig = {
             apiKey: "AIzaSyA9S_wa9u0D5SRiqmvcRGq8hf-maj_4b3M",
             authDomain: "etapa-ec59e.firebaseapp.com",
             projectId: "etapa-ec59e",
-            storageBucket: "etapa-ec59e.appspot.com",
+            storageBucket: "etapa-ec59e.firebasestorage.app",
             messagingSenderId: "368438766739",
             appId: "1:368438766739:web:cd6b1979986bc2dca9b166",
             measurementId: "G-8083KG85B6"
         };
 
-        // Inicializa o Firebase
-        firebase.initializeApp(firebaseConfig);
-        const auth = firebase.auth();
-        const db = firebase.firestore();
+        // Initialize Firebase
+        const app = initializeApp(firebaseConfig);
+        const auth = getAuth(app);
+        const db = getFirestore(app);
 
         const loginForm = document.getElementById('login-form');
         const loginError = document.getElementById('login-error');
         
-        loginForm.addEventListener('submit', (e) => {
+        loginForm.addEventListener('submit', async (e) => {
             e.preventDefault();
             loginError.style.display = 'none';
             const username = document.getElementById('login-username').value.trim();
@@ -79,22 +82,30 @@
                 return;
             }
 
-            db.collection('usuarios').where('usuario', '==', username).limit(1).get()
-                .then(querySnapshot => {
-                    if (querySnapshot.empty) { throw new Error("Usuário ou senha inválidos."); }
-                    const email = querySnapshot.docs[0].data().email;
-                    return auth.signInWithEmailAndPassword(email, password);
-                })
-                .then(() => { window.location.href = 'home.html'; })
-                .catch(error => {
-                    loginError.textContent = "Usuário ou senha inválidos.";
-                    loginError.style.display = 'block';
-                });
+            try {
+                const usersCollectionRef = collection(db, 'usuarios');
+                const q = query(usersCollectionRef, where('usuario', '==', username), limit(1));
+                const querySnapshot = await getDocs(q);
+
+                if (querySnapshot.empty) {
+                    throw new Error("User not found in Firestore");
+                }
+
+                const email = querySnapshot.docs[0].data().email;
+                await signInWithEmailAndPassword(auth, email, password);
+                window.location.href = 'home.html';
+            } catch (error) {
+                console.error("Login failed:", error);
+                loginError.textContent = "Usuário ou senha inválidos.";
+                loginError.style.display = 'block';
+            }
         });
         
-        // Redireciona se o usuário já estiver logado
-        auth.onAuthStateChanged(user => {
-            if (user) { window.location.href = 'home.html'; }
+        // Redirect if user is already logged in
+        onAuthStateChanged(auth, user => {
+            if (user) {
+                window.location.href = 'home.html';
+            }
         });
     </script>
 </body>

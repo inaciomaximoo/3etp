@@ -1139,8 +1139,29 @@
     </div>
 
 
-    <script>
-        // ID Fixo para o simulado embutido
+    <script type="module">
+        // ===================================================================
+        // 1. FIREBASE SETUP & AUTHENTICATION
+        // ===================================================================
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js";
+        import { getAuth, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-auth.js";
+
+        const firebaseConfig = {
+            apiKey: "AIzaSyA9S_wa9u0D5SRiqmvcRGq8hf-maj_4b3M",
+            authDomain: "etapa-ec59e.firebaseapp.com",
+            projectId: "etapa-ec59e",
+            storageBucket: "etapa-ec59e.firebasestorage.app",
+            messagingSenderId: "368438766739",
+            appId: "1:368438766739:web:cd6b1979986bc2dca9b166",
+            measurementId: "G-8083KG85B6"
+        };
+
+        const app = initializeApp(firebaseConfig);
+        const auth = getAuth(app);
+
+        // ===================================================================
+        // 2. CÓDIGO DO SIMULADOR
+        // ===================================================================
         const EMBEDDED_QUIZ_ID = 'simulado_principal_embutido';
         let currentFileId = EMBEDDED_QUIZ_ID; // Usar o ID fixo globalmente
 
@@ -4146,18 +4167,20 @@
 
         // REMOVIDA: function loadNewFile() { location.reload(); }
 
-        document.addEventListener('DOMContentLoaded', () => {
-            quizPage.style.display = 'none'; 
-            resultsPage.style.display = 'none'; // Esconde a página de resultados inicialmente
-            
-            loadEmbeddedQuizAndShowOptions(); // Carrega o simulado embutido e mostra opções
-
-            if (document.body.classList.contains('dark-mode')) {
-                darkModeText.textContent = 'Modo Claro';
-                darkModeTextResults.textContent = 'Modo Claro';
+        // ===================================================================
+        // 3. INICIALIZAÇÃO DA PÁGINA E AUTENTICAÇÃO
+        // ===================================================================
+        onAuthStateChanged(auth, (user) => {
+            if (user) {
+                // Usuário está logado, pode carregar o simulador
+                console.log("Usuário autenticado. Carregando simulador...");
+                quizPage.style.display = 'none'; 
+                resultsPage.style.display = 'none';
+                loadEmbeddedQuizAndShowOptions();
             } else {
-                darkModeText.textContent = 'Modo Escuro';
-                darkModeTextResults.textContent = 'Modo Escuro';
+                // Usuário não está logado, redireciona para a página de login
+                console.log("Usuário não autenticado. Redirecionando para o login...");
+                window.location.href = 'index.html';
             }
         });
 
