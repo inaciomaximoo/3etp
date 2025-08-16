@@ -23,6 +23,7 @@
     --border-color: #d1d9e6;
     --shadow-color: rgba(0, 0, 0, 0.1);
     --danger-color: #ff3b30;
+    --success-color: #34c759;
     --transition-speed: 0.3s;
 }
 
@@ -194,48 +195,62 @@ li.top-rank .aluno-posicao { transform: scale(1.2); }
     border: 1px solid var(--border-color);
 }
 
-#iframeViewer { z-index: 3000; padding: 4vh 4vw; }
-.iframe-window { width: 100%; height: 100%; display: flex; flex-direction: column; overflow: hidden; }
+.modal-header { display: flex; justify-content: space-between; align-items: center; padding: 20px 30px; border-bottom: 1px solid var(--border-color); }
+.modal-title { font-size: 1.4rem; font-weight: 600; color: var(--primary-color); }
+.modal-close-btn { font-size: 1.8rem; font-weight: bold; cursor: pointer; border: none; background: transparent; color: var(--text-secondary); transition: color var(--transition-speed), transform 0.2s ease; }
+.modal-close-btn:hover, .modal-close-btn:active { color: var(--text-primary); transform: scale(1.2); }
 
-.module-modal-content { max-width: 450px; padding: 35px; text-align: center; }
-.module-modal-content h2 { font-size: 1.6rem; font-weight: 600; color: var(--primary-color); margin-bottom: 25px; padding-bottom: 15px; border-bottom: 1px solid var(--border-color); }
-#moduleModalButtonsContainer { display: flex; flex-direction: column; gap: 15px; margin-bottom: 25px; }
-.button-action { display: flex; align-items: center; justify-content: center; width: 100%; text-align: center; background: linear-gradient(45deg, var(--primary-color), var(--primary-dark)); color: white; padding: 14px 30px; border: none; border-radius: 10px; cursor: pointer; font-weight: 600; font-size: 1rem; transition: transform 0.2s ease, filter 0.2s ease; text-decoration: none; position: relative; }
-.button-action:hover, .button-action:active { transform: translateY(-3px); filter: brightness(1.1); }
-.button-action svg { width: 18px; height: 18px; margin-right: 10px; }
-#closeModuleModalBtn, #closeDepoimentosModalBtn { display: inline-block; background-color: var(--text-secondary); color: white; padding: 10px 25px; border: none; border-radius: 8px; cursor: pointer; font-weight: 500; font-size: 0.9rem; transition: background-color 0.3s ease; }
-#closeModuleModalBtn:hover, #closeModuleModalBtn:active, #closeDepoimentosModalBtn:hover, #closeDepoimentosModalBtn:active { background-color: var(--text-primary); }
-.avatar-modal-content-box { max-width: 550px; padding: 35px; text-align: center; }
-.avatar-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(90px, 1fr)); gap: 20px; max-height: 60vh; overflow-y: auto; padding: 15px; background-color: var(--bg-main); border-radius: 12px; border: 1px solid var(--border-color); margin-bottom: 20px; }
-.avatar-option { padding-top: 100%; position: relative; border-radius: 12px; overflow: hidden; cursor: pointer; border: 4px solid transparent; transition: all 0.3s ease; }
-.avatar-option:hover, .avatar-option:active { transform: scale(1.05); border-color: var(--primary-light); }
-.avatar-option.selected-preview { border-color: var(--primary-color); transform: scale(1.05); }
-.avatar-option img { position: absolute; top: 0; left: 0; width: 100%; height: 100%; object-fit: cover; }
-#closeAvatarModalBtn { background: var(--danger-color); color: white; padding: 12px 28px; border: none; border-radius: 8px; font-weight: 500; cursor: pointer; transition: all 0.2s ease; }
-#closeAvatarModalBtn:hover, #closeAvatarModalBtn:active { filter: brightness(1.1); transform: scale(1.05); }
-.iframe-header { padding: 8px 15px; text-align: right; background-color: var(--bg-main); border-bottom: 1px solid var(--border-color); flex-shrink: 0; transition: all var(--transition-speed); }
-#closeIframeButton { font-size: 1.8rem; font-weight: bold; cursor: pointer; border: none; background: transparent; color: var(--text-secondary); transition: color var(--transition-speed), transform 0.2s ease; }
-#closeIframeButton:hover, #closeIframeButton:active { color: var(--text-primary); transform: scale(1.2); }
-#contentIframe { width: 100%; flex-grow: 1; border: none; }
+/* Formulários dentro de modais */
+.modal-form { padding: 30px; }
+.form-group { margin-bottom: 20px; text-align: left; }
+.form-group label { display: block; font-weight: 500; margin-bottom: 8px; font-size: 0.9rem; }
+.form-group input, .form-group textarea { width: 100%; padding: 12px 15px; border: 1px solid var(--border-color); border-radius: 8px; font-size: 1rem; font-family: 'Poppins', sans-serif; transition: border-color 0.2s, box-shadow 0.2s; background-color: var(--bg-main); color: var(--text-primary); }
+.form-group input:focus, .form-group textarea:focus { outline: none; border-color: var(--primary-color); box-shadow: 0 0 0 3px var(--primary-light); }
+.form-group textarea { resize: vertical; min-height: 100px; }
+.form-actions { display: flex; justify-content: flex-end; gap: 15px; margin-top: 20px; }
+.button-primary, .button-secondary { padding: 12px 28px; border: none; border-radius: 8px; font-weight: 600; font-size: 1rem; cursor: pointer; transition: all 0.2s ease; }
+.button-primary { background-color: var(--primary-color); color: white; }
+.button-primary:hover { filter: brightness(1.1); }
+.button-secondary { background-color: transparent; color: var(--text-secondary); border: 1px solid var(--border-color); }
+.button-secondary:hover { background-color: var(--bg-main); }
+.button-primary:disabled { background-color: #999; cursor: not-allowed; }
 
-.depoimentos-modal-content-box { max-width: 650px; width: 90%; padding: 35px; text-align: center; display: flex; flex-direction: column; }
-.depoimentos-modal-title { font-size: 1.6rem; font-weight: 600; color: var(--primary-color); margin-bottom: 25px; padding-bottom: 15px; border-bottom: 1px solid var(--border-color); }
-.depoimentos-modal-slider { position: relative; flex-grow: 1; display: flex; align-items: center; justify-content: center; min-height: 250px; width: 100%; }
+/* Modal de Depoimentos */
+.depoimentos-modal-content-box { max-width: 650px; width: 90%; text-align: center; display: flex; flex-direction: column; }
+.depoimentos-modal-tabs { display: flex; border-bottom: 1px solid var(--border-color); margin: 0 30px; }
+.depoimentos-tab { padding: 15px 20px; cursor: pointer; font-weight: 500; color: var(--text-secondary); border-bottom: 3px solid transparent; transition: all 0.2s ease; }
+.depoimentos-tab.active { color: var(--primary-color); border-bottom-color: var(--primary-color); }
+.depoimentos-tab-content { padding: 30px; display: none; }
+.depoimentos-tab-content.active { display: block; }
+.depoimentos-modal-slider { position: relative; display: flex; align-items: center; justify-content: center; min-height: 250px; width: 100%; }
 .depoimento-modal-slide { position: absolute; width: 100%; display: flex; flex-direction: column; align-items: center; text-align: center; opacity: 0; transform: translateY(15px); transition: opacity 0.6s ease-in-out, transform 0.6s ease-in-out; }
 .depoimento-modal-slide.active { opacity: 1; transform: translateY(0); }
 .depoimento-modal-slide .depoimento-avatar { width: 80px; height: 80px; }
 .depoimento-modal-slide .depoimento-texto { font-size: 1rem; display: block; -webkit-line-clamp: unset; line-clamp: unset; max-height: 150px; overflow-y: auto; padding-right: 10px; scrollbar-width: thin; scrollbar-color: var(--primary-color) transparent; }
 .depoimento-modal-slide .depoimento-estrelas { font-size: 1.3rem; }
 .depoimento-modal-slide .depoimento-nome { font-size: 1rem; }
+.rating-stars { display: flex; justify-content: center; gap: 10px; font-size: 2rem; color: var(--border-color); margin: 15px 0; }
+.rating-stars span { cursor: pointer; transition: color 0.2s, transform 0.2s; }
+.rating-stars span:hover, .rating-stars span.selected { color: var(--star-color); transform: scale(1.2); }
 #closeDepoimentosModalBtn { margin-top: 25px; align-self: center; }
 
-.ai-chat-modal-content { max-width: 500px; width: 100%; height: 70vh; max-height: 600px; padding: 0; display: flex; flex-direction: column; overflow: hidden; }
-.ai-chat-header { display: flex; justify-content: space-between; align-items: center; padding: 15px 20px; border-bottom: 1px solid var(--border-color); flex-shrink: 0; }
-.ai-chat-title { font-size: 1.3rem; font-weight: 600; color: var(--primary-color); }
-#closeChatModalBtn { font-size: 1.8rem; font-weight: bold; cursor: pointer; border: none; background: transparent; color: var(--text-secondary); transition: color var(--transition-speed), transform 0.2s ease; }
-#closeChatModalBtn:hover, #closeChatModalBtn:active { color: var(--text-primary); transform: scale(1.2); }
+/* Modal Salas de Chat */
+.salas-chat-modal-content { max-width: 700px; width: 100%; max-height: 85vh; display: flex; flex-direction: column; }
+.salas-chat-view { display: none; flex-direction: column; height: 100%; }
+.salas-chat-view.active { display: flex; }
+#salas-lista-view .modal-body { padding: 30px; overflow-y: auto; }
+.salas-list { display: grid; grid-template-columns: repeat(auto-fill, minmax(250px, 1fr)); gap: 20px; }
+.sala-card { background-color: var(--bg-main); border: 1px solid var(--border-color); border-radius: 12px; padding: 20px; cursor: pointer; transition: all 0.2s ease; text-align: left; }
+.sala-card:hover { transform: translateY(-5px); border-color: var(--primary-color); }
+.sala-card-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 10px; }
+.sala-nome { font-size: 1.1rem; font-weight: 600; color: var(--text-primary); }
+.sala-info { display: flex; align-items: center; gap: 15px; font-size: 0.9rem; color: var(--text-secondary); }
+.sala-membros::before { content: '👥'; margin-right: 5px; }
+.sala-cadeado::before { content: '🔒'; margin-right: 5px; }
+#chat-room-view { height: 100%; overflow: hidden; }
 #chat-messages { flex-grow: 1; overflow-y: auto; padding: 20px; display: flex; flex-direction: column; gap: 12px; }
-.chat-message { padding: 10px 15px; border-radius: 18px; max-width: 80%; line-height: 1.5; word-wrap: break-word; }
+.chat-message { padding: 10px 15px; border-radius: 18px; max-width: 80%; line-height: 1.5; word-wrap: break-word; animation: fadeIn 0.3s; }
+.chat-message .message-author { font-size: 0.8rem; font-weight: 600; margin-bottom: 4px; opacity: 0.8; }
 .user-message { background-color: var(--primary-color); color: white; border-bottom-right-radius: 4px; align-self: flex-end; }
 .bot-message { background-color: var(--bg-main); color: var(--text-primary); border-bottom-left-radius: 4px; align-self: flex-start; }
 .chat-input-area { display: flex; padding: 15px; border-top: 1px solid var(--border-color); gap: 10px; flex-shrink: 0; }
@@ -257,50 +272,15 @@ li.top-rank .aluno-posicao { transform: scale(1.2); }
 /* 6. RESPONSIVIDADE (MEDIA QUERIES)                                   */
 /* =================================================================== */
 @media (max-width: 768px) {
-    body { padding: 0; justify-content: flex-start; align-items: flex-start; }
+    body { padding: 0; }
     .main-container { padding: 15px; }
-    .homepage-card { padding: 30px; min-height: auto; border-radius: 24px; }
-    .dark-mode-toggle { top: 20px; right: 20px; width: 44px; height: 44px; }
-    .icon-container { width: 22px; height: 22px; }
-    .moon-icon, .sun-icon { font-size: 1.4rem; }
-    .app-header { padding-bottom: 30px; margin-bottom: 35px; }
-    #selectedAvatarDisplay { width: 100px; height: 100px; }
-    .edit-avatar-icon { width: 32px; height: 32px; }
-    .edit-avatar-icon svg { width: 16px; height: 16px; }
-    .app-title { font-size: 2.1rem; }
-    .app-subtitle { font-size: 1.1rem; }
-    .modules-grid { grid-template-columns: repeat(2, 1fr); gap: 20px; }
-    .module-card { padding: 25px; }
-    .module-card .section-icon { width: 40px; height: 40px; }
-    .module-card-title { font-size: 1.1rem; }
-    .modal-content { width: 95%; max-height: 90vh; padding: 30px; }
-    .ai-chat-modal-content { padding: 0; }
-    .module-modal-content h2, .depoimentos-modal-title { font-size: 1.6rem; }
-    #moduleModalButtonsContainer { display: grid; grid-template-columns: 1fr 1fr; gap: 15px; }
-    .button-action { font-size: 1rem; padding: 16px 10px; }
-    #iframeViewer { padding: 0; }
-    .iframe-window { border-radius: 0; height: 100%; }
+    .homepage-card { padding: 30px; }
+    .modules-grid { grid-template-columns: 1fr 1fr; gap: 20px; }
 }
-
 @media (max-width: 480px) {
     .main-container { padding: 10px; }
-    .homepage-card { padding: 25px 20px; border-radius: 20px; }
-    .app-header { margin-bottom: 30px; }
-    #selectedAvatarDisplay { width: 90px; height: 90px; }
-    .app-title { font-size: 1.9rem; }
-    .app-subtitle { font-size: 1rem; }
+    .homepage-card { padding: 25px 20px; }
     .modules-grid { grid-template-columns: 1fr; gap: 18px; }
-    .module-card { padding: 20px; }
-    .module-card .section-icon { width: 38px; height: 38px; }
-    .module-card-title { font-size: 1rem; line-height: 1.3; }
-    #moduleModalButtonsContainer { grid-template-columns: 1fr; }
-    .button-action { font-size: 0.9rem; padding: 14px 10px; }
-    .button-action svg { width: 20px; height: 20px; margin-right: 8px; }
-    .modal-content { width: 92%; padding: 25px; }
-    .ai-chat-modal-content { width: 100%; height: 100%; max-height: 100%; border-radius: 0; padding: 0;}
-    .module-modal-content h2, .depoimentos-modal-title { font-size: 1.5rem; }
-    .avatar-grid { gap: 15px; grid-template-columns: repeat(auto-fit, minmax(75px, 1fr)); }
-    .depoimento-modal-slide .depoimento-texto { font-size: 1rem; }
 }
 </style>
 </head>
@@ -335,138 +315,228 @@ li.top-rank .aluno-posicao { transform: scale(1.2); }
     </div>
 </div>
 
-<div id="iframeViewer" class="modal-overlay"><div class="iframe-window modal-content"><div class="iframe-header"><button id="closeIframeButton" title="Fechar" aria-label="Fechar Janela">&times;</button></div><iframe id="contentIframe" title="Conteúdo Externo" sandbox="allow-scripts allow-same-origin allow-popups allow-forms"></iframe></div></div>
-<div id="avatarModalOverlay" class="modal-overlay"><div class="avatar-modal-content-box modal-content"><h2>Escolha seu Avatar</h2><div id="avatarGrid" class="avatar-grid"></div><button id="closeAvatarModalBtn">Fechar</button></div></div>
-<div id="moduleModalOverlay" class="modal-overlay"><div class="module-modal-content modal-content"><h2 id="moduleModalTitle"></h2><div id="moduleModalButtonsContainer"></div><button id="closeModuleModalBtn">Fechar</button></div></div>
-<div id="depoimentosModalOverlay" class="modal-overlay"><div class="depoimentos-modal-content-box modal-content"><h2 class="depoimentos-modal-title">O que outros estudantes dizem</h2><div id="depoimentosModalSlider" class="depoimentos-modal-slider"></div><button id="closeDepoimentosModalBtn">Fechar</button></div></div>
-<div id="aiChatModalOverlay" class="modal-overlay"><div class="ai-chat-modal-content modal-content"><div class="ai-chat-header"><h2 id="chatTitle" class="ai-chat-title">Chat de Dúvidas</h2><button id="closeChatModalBtn" title="Fechar">&times;</button></div><div id="chat-messages"></div><div class="chat-input-area"><input type="text" id="chat-input" placeholder="Digite sua mensagem..."><button id="send-chat-button" title="Enviar Mensagem"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="22" y1="2" x2="11" y2="13"></line><polygon points="22 2 15 22 11 13 2 9 22 2"></polygon></svg></button></div></div></div>
+<div id="avatarModalOverlay" class="modal-overlay"><div class="modal-content">
+    <div class="modal-header"><h2 class="modal-title">Escolha seu Avatar</h2><button id="closeAvatarModalBtn" class="modal-close-btn">&times;</button></div>
+    <div id="avatarGrid" style="padding: 30px; display: grid; grid-template-columns: repeat(auto-fit, minmax(90px, 1fr)); gap: 20px;"></div>
+</div></div>
 
-<script>
-document.addEventListener('DOMContentLoaded', () => {
-    // --- Seletores de Elementos DOM ---
-    const bodyElement = document.body;
-    const homepageCard = document.querySelector('.homepage-card');
-    const modulesContainer = document.getElementById('modulesContainer');
-    const feedbackContainer = document.getElementById('feedbackContainer');
-    const rankingContainer = document.getElementById('rankingContainer');
-    const userGreeting = document.getElementById('userGreeting');
-    const selectedAvatarDisplay = document.getElementById('selectedAvatarDisplay');
+<div id="moduleModalOverlay" class="modal-overlay"><div class="modal-content">
+    <div class="modal-header"><h2 id="moduleModalTitle" class="modal-title"></h2><button id="closeModuleModalBtn" class="modal-close-btn">&times;</button></div>
+    <div id="moduleModalButtonsContainer" style="padding: 30px; display: flex; flex-direction: column; gap: 15px;"></div>
+</div></div>
 
-    // Modais e Overlays
-    const iframeViewer = document.getElementById('iframeViewer');
-    const contentIframe = document.getElementById('contentIframe');
-    const avatarModalOverlay = document.getElementById('avatarModalOverlay');
-    const moduleModalOverlay = document.getElementById('moduleModalOverlay');
-    const depoimentosModalOverlay = document.getElementById('depoimentosModalOverlay');
-    const aiChatModalOverlay = document.getElementById('aiChatModalOverlay');
+<div id="depoimentosModalOverlay" class="modal-overlay"><div class="depoimentos-modal-content-box modal-content">
+    <div class="modal-header"><h2 class="modal-title">O que outros estudantes dizem</h2><button id="closeDepoimentosModalBtn" class="modal-close-btn">&times;</button></div>
+    <div class="depoimentos-modal-tabs">
+        <div class="depoimentos-tab active" data-tab="ver">Ver Depoimentos</div>
+        <div class="depoimentos-tab" data-tab="escrever">Deixar o seu</div>
+    </div>
+    <div id="tab-ver" class="depoimentos-tab-content active">
+        <div id="depoimentosModalSlider" class="depoimentos-modal-slider">Carregando depoimentos...</div>
+    </div>
+    <div id="tab-escrever" class="depoimentos-tab-content">
+        <form id="form-depoimento" class="modal-form">
+            <div class="form-group">
+                <label for="depoimento-texto">Seu comentário:</label>
+                <textarea id="depoimento-texto" required minlength="10" placeholder="Escreva pelo menos 10 caracteres..."></textarea>
+            </div>
+            <div class="form-group">
+                <label>Sua nota:</label>
+                <div class="rating-stars" id="depoimento-estrelas">
+                    <span data-value="1">★</span><span data-value="2">★</span><span data-value="3">★</span><span data-value="4">★</span><span data-value="5">★</span>
+                </div>
+            </div>
+            <div class="form-actions">
+                <button type="submit" class="button-primary">Enviar Depoimento</button>
+            </div>
+        </form>
+    </div>
+</div></div>
+
+<div id="salasChatModalOverlay" class="modal-overlay"><div class="salas-chat-modal-content modal-content">
+    <div id="salas-lista-view" class="salas-chat-view active">
+        <div class="modal-header">
+            <h2 class="modal-title">Salas de Dúvidas</h2>
+            <button id="closeSalasChatModalBtn" class="modal-close-btn">&times;</button>
+        </div>
+        <div class="modal-body">
+            <div id="salas-list-container" class="salas-list"></div>
+        </div>
+        <div class="modal-footer" style="padding: 20px 30px; border-top: 1px solid var(--border-color); text-align: right;">
+            <button id="btn-mostrar-criar-sala" class="button-primary">Criar Nova Sala</button>
+        </div>
+    </div>
+    <div id="salas-criar-view" class="salas-chat-view">
+        <div class="modal-header">
+            <h2 class="modal-title">Criar Nova Sala</h2>
+            <button id="btn-voltar-para-lista" class="modal-close-btn" style="font-size: 1.2rem;">&larr; Voltar</button>
+        </div>
+        <form id="form-criar-sala" class="modal-form">
+            <div class="form-group">
+                <label for="criar-sala-nome">Nome da Sala</label>
+                <input type="text" id="criar-sala-nome" required placeholder="Ex: Dúvidas de Fármaco">
+            </div>
+            <div class="form-group">
+                <label for="criar-sala-senha">Senha (opcional)</label>
+                <input type="password" id="criar-sala-senha" placeholder="Deixe em branco para sala pública">
+            </div>
+            <div class="form-actions">
+                <button type="submit" class="button-primary">Criar</button>
+            </div>
+        </form>
+    </div>
+    <div id="chat-room-view" class="salas-chat-view">
+        <div class="modal-header">
+            <h2 id="chat-room-title" class="modal-title"></h2>
+            <button id="btn-sair-do-chat" class="modal-close-btn">&times;</button>
+        </div>
+        <div id="chat-messages" class="chat-messages"></div>
+        <div class="chat-input-area">
+            <input type="text" id="chat-input" placeholder="Digite sua mensagem...">
+            <button id="send-chat-button" title="Enviar Mensagem">
+                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="22" y1="2" x2="11" y2="13"></line><polygon points="22 2 15 22 11 13 2 9 22 2"></polygon></svg>
+            </button>
+        </div>
+    </div>
+</div></div>
+
+<script type="module">
+    import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js";
+    import { getAuth, onAuthStateChanged, signOut } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-auth.js";
+    import { getFirestore, collection, doc, getDoc, getDocs, addDoc, onSnapshot, query, where, orderBy, limit, serverTimestamp, updateDoc, increment } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js";
+
+    const firebaseConfig = {
+        apiKey: "AIzaSyA9S_wa9u0D5SRiqmvcRGq8hf-maj_4b3M",
+        authDomain: "etapa-ec59e.firebaseapp.com",
+        projectId: "etapa-ec59e",
+        storageBucket: "etapa-ec59e.firebasestorage.app",
+        messagingSenderId: "368438766739",
+        appId: "1:368438766739:web:cd6b1979986bc2dca9b166",
+        measurementId: "G-8083KG85B6"
+    };
+
+    const app = initializeApp(firebaseConfig);
+    const auth = getAuth(app);
+    const db = getFirestore(app);
+
+    let currentUser = null; // Armazena dados do usuário logado (uid, nick)
+    let unsubscribeChatMessages = null; // Para parar de ouvir mensagens ao sair da sala
     
-    // Conteúdo dos Modais
-    const avatarGrid = document.getElementById('avatarGrid');
-    const moduleModalTitle = document.getElementById('moduleModalTitle');
-    const moduleModalButtonsContainer = document.getElementById('moduleModalButtonsContainer');
-    const depoimentosModalSlider = document.getElementById('depoimentosModalSlider');
-    const chatMessages = document.getElementById('chat-messages');
-    const chatInput = document.getElementById('chat-input');
-    const chatTitle = document.getElementById('chatTitle');
+    // --- LÓGICA DE AUTENTICAÇÃO E INICIALIZAÇÃO DA PÁGINA ---
+    onAuthStateChanged(auth, async (user) => {
+        if (user) {
+            const userDocRef = doc(db, "usuarios", user.uid);
+            const userDocSnap = await getDoc(userDocRef);
 
-    let modalSliderIntervalId = null;
-
-    // ===================================================================
-    // FUNÇÕES DE UTILIDADE GERAL
-    // ===================================================================
-    function openModal(modalOverlay) {
-        bodyElement.classList.add('modal-active');
-        modalOverlay.classList.add('active');
-        if (modalOverlay === iframeViewer) {
-             homepageCard.style.display = 'none';
-        }
-    }
-
-    function closeModal(modalOverlay) {
-        bodyElement.classList.remove('modal-active');
-        modalOverlay.classList.remove('active');
-        if (modalOverlay === iframeViewer) {
-            contentIframe.src = 'about:blank';
-            homepageCard.style.display = 'block';
-        }
-    }
-    
-    // ===================================================================
-    // DARK MODE E SAUDAÇÃO
-    // ===================================================================
-    function applyDarkMode(isDark) { 
-        bodyElement.classList.toggle('dark-mode', isDark); 
-        localStorage.setItem(CONFIG.darkModeKey, isDark); 
-    }
-    
-    function updateUserGreeting() {
-        const hour = new Date().getHours();
-        let greeting = "Olá! Pronto(a) para os estudos?";
-        if (hour >= 5 && hour < 12) { greeting = "Bom dia! Vamos começar bem os estudos?"; }
-        else if (hour >= 12 && hour < 18) { greeting = "Boa tarde! Que tal revisar uma matéria?"; }
-        else { greeting = "Boa noite! Ótimo momento para se concentrar."; }
-        userGreeting.textContent = greeting;
-    }
-
-    // ===================================================================
-    // GERAÇÃO DE CONTEÚDO DINÂMICO
-    // ===================================================================
-    function generateModuleCards() {
-        modulesContainer.innerHTML = ''; 
-        const moduleIds = Object.keys(CONFIG.modulesData).filter(id => id !== 'erroUrl' && id !== 'depoimentos');
-        
-        moduleIds.forEach((moduleId, index) => {
-            const module = CONFIG.modulesData[moduleId];
-            const card = document.createElement('div');
-            card.className = 'module-card';
-            card.dataset.moduleId = moduleId;
-            if (moduleId === 'materias') {
-                card.style.gridColumn = '1 / -1';
-                card.classList.add('highlighted-card');
+            if (userDocSnap.exists()) {
+                currentUser = { uid: user.uid, ...userDocSnap.data() };
+                document.getElementById('userGreeting').textContent = `Olá, ${currentUser.nick}! Pronto(a) para os estudos?`;
+                initializePage();
+            } else {
+                // Se o documento do usuário não existe no Firestore, desloga
+                signOut(auth);
             }
-            card.style.animationDelay = `${index * 60}ms`;
-            card.innerHTML = `${module.icon}<h3 class="module-card-title">${module.title}</h3>`;
-            modulesContainer.appendChild(card);
-        });
-    }
+        } else {
+            // Se não há usuário logado, redireciona para a página de login
+            window.location.href = 'index.html';
+        }
+    });
 
-    function generateFeedbackCard() {
-        const module = CONFIG.modulesData.depoimentos;
-        if (!module) return;
-
-        const depoimentosHtml = CONFIG.depoimentosData.map(depoimento => {
-            const estrelasHtml = `<div class="depoimento-estrelas">${Array(5).fill('').map((_, i) => `<span class="${i < depoimento.estrelas ? 'cheia' : ''}">★</span>`).join('')}</div>`;
-            return `<div class="depoimento-slide">
-                        <div>
-                            <img src="${depoimento.foto}" alt="Foto de ${depoimento.nome}" class="depoimento-avatar">
-                            <p class="depoimento-texto">“${depoimento.comentario}”</p>
-                        </div>
-                        <div class="depoimento-autor-info">
-                            ${estrelasHtml}
-                            <p class="depoimento-nome">- ${depoimento.nome}</p>
-                        </div>
-                    </div>`;
-        }).join('');
+    function initializePage() {
+        document.querySelector('.homepage-card').style.display = 'block';
         
-        feedbackContainer.innerHTML = `
+        // Carrega dados dinâmicos do Firebase
+        carregarDepoimentos();
+        carregarRanking();
+        ouvirSalasAtivas();
+
+        // Preserva funcionalidades existentes
+        setupStaticUI();
+    }
+    
+    // --- LÓGICA DOS DEPOIMENTOS ---
+    const depoimentosModalOverlay = document.getElementById('depoimentosModalOverlay');
+    const depoimentosModalSlider = document.getElementById('depoimentosModalSlider');
+    const formDepoimento = document.getElementById('form-depoimento');
+    let estrelasSelecionadas = 0;
+
+    async function carregarDepoimentos() {
+        const q = query(collection(db, "depoimentos"), orderBy("timestamp", "desc"), limit(10));
+        const querySnapshot = await getDocs(q);
+        
+        if (querySnapshot.empty) {
+            depoimentosModalSlider.innerHTML = `<p>Ainda não há depoimentos. Seja o primeiro!</p>`;
+            document.querySelector('.module-card-depoimentos').style.display = 'none'; // Esconde se não houver
+            return;
+        }
+
+        const depoimentosData = querySnapshot.docs.map(doc => doc.data());
+        
+        // Para o slider principal
+        const depoimentosHtml = depoimentosData.map(d => criarSlideDepoimento(d, 'card')).join('');
+        document.getElementById('feedbackContainer').innerHTML = `
             <div class="module-card module-card-depoimentos" data-module-id="depoimentos" style="min-height: 420px;">
-                <h3 class="module-card-title">${module.title}</h3>
+                <h3 class="module-card-title">Dicas & Feedback</h3>
                 <div id="depoimentosSliderContainer" class="depoimentos-slider">${depoimentosHtml}</div>
             </div>`;
-    }
+        iniciarSlider('#depoimentosSliderContainer', '.depoimento-slide', 7000);
 
-    function generateRankingAlunos() {
-        const rankingData = CONFIG.rankingAlunos;
-        const rankingItemsHtml = rankingData.map((aluno, index) => {
+        // Para o modal
+        const depoimentosModalHtml = depoimentosData.map(d => criarSlideDepoimento(d, 'modal')).join('');
+        depoimentosModalSlider.innerHTML = depoimentosModalHtml;
+        iniciarSlider('#depoimentosModalSlider', '.depoimento-modal-slide', 5000);
+    }
+    
+    document.getElementById('depoimento-estrelas').addEventListener('click', e => {
+        if (e.target.tagName === 'SPAN') {
+            estrelasSelecionadas = parseInt(e.target.dataset.value);
+            document.querySelectorAll('#depoimento-estrelas span').forEach((star, index) => {
+                star.classList.toggle('selected', index < estrelasSelecionadas);
+            });
+        }
+    });
+    
+    formDepoimento.addEventListener('submit', async (e) => {
+        e.preventDefault();
+        const texto = document.getElementById('depoimento-texto').value;
+        if (texto.length < 10 || estrelasSelecionadas === 0) {
+            alert("Por favor, escreva um comentário com pelo menos 10 caracteres e selecione uma nota.");
+            return;
+        }
+
+        await addDoc(collection(db, "depoimentos"), {
+            uid: currentUser.uid,
+            nick: currentUser.nick,
+            avatar: localStorage.getItem('estudanteSelectedAvatar_v2') || 'https://i.imgur.com/K0Ssp28.png',
+            comentario: texto,
+            estrelas: estrelasSelecionadas,
+            timestamp: serverTimestamp()
+        });
+
+        alert("Depoimento enviado com sucesso! Obrigado!");
+        closeModal(depoimentosModalOverlay);
+        formDepoimento.reset();
+        estrelasSelecionadas = 0;
+        document.querySelectorAll('#depoimento-estrelas span').forEach(s => s.classList.remove('selected'));
+        carregarDepoimentos();
+    });
+
+    // --- LÓGICA DO RANKING ---
+    async function carregarRanking() {
+        const rankingContainer = document.getElementById('rankingContainer');
+        const q = query(collection(db, "usuarios"), orderBy("pontos", "desc"), limit(5));
+        const querySnapshot = await getDocs(q);
+
+        if (querySnapshot.empty) {
+            rankingContainer.innerHTML = ''; return;
+        }
+
+        const rankingItemsHtml = querySnapshot.docs.map((doc, index) => {
+            const aluno = doc.data();
             const crown = index === 0 ? '👑' : `${index + 1}º`;
-            return `<li class="${aluno.top ? 'top-rank' : ''}">
-                        <div class="aluno-info">
-                            <span class="aluno-posicao">${crown}</span>
-                            <span class="aluno-nome">${aluno.nome}</span>
-                        </div>
-                        <div class="aluno-pontos">
-                            ${aluno.pontos} <span class="aluno-pontos-label">pts</span>
-                        </div>
+            return `<li class="${index === 0 ? 'top-rank' : ''}">
+                        <div class="aluno-info"><span class="aluno-posicao">${crown}</span><span class="aluno-nome">${aluno.nick}</span></div>
+                        <div class="aluno-pontos">${aluno.pontos || 0} <span class="aluno-pontos-label">pts</span></div>
                     </li>`;
         }).join('');
 
@@ -477,265 +547,320 @@ document.addEventListener('DOMContentLoaded', () => {
             </div>`;
     }
 
-    // ===================================================================
-    // FUNCIONALIDADES DOS MODAIS
-    // ===================================================================
-    function openIframeViewer(url) {
-        if (url && url !== '#') {
-            contentIframe.src = url;
-            openModal(iframeViewer);
-        } else {
-            openModuleModalById('erroUrl');
+    // --- LÓGICA DO CHAT DE DÚVIDAS (SALAS) ---
+    const salasChatModal = document.getElementById('salasChatModalOverlay');
+    const salasListaView = document.getElementById('salas-lista-view');
+    const salasCriarView = document.getElementById('salas-criar-view');
+    const chatRoomView = document.getElementById('chat-room-view');
+    let currentSalaId = null;
+
+    function ouvirSalasAtivas() {
+        const q = query(collection(db, "salas"), orderBy("timestamp", "desc"));
+        onSnapshot(q, (querySnapshot) => {
+            const container = document.getElementById('salas-list-container');
+            if (querySnapshot.empty) {
+                container.innerHTML = '<p>Nenhuma sala ativa no momento. Que tal criar uma?</p>';
+                return;
+            }
+            container.innerHTML = querySnapshot.docs.map(doc => {
+                const sala = doc.data();
+                return `<div class="sala-card" data-id="${doc.id}" data-senha="${sala.comSenha}">
+                            <div class="sala-card-header">
+                                <span class="sala-nome">${sala.nome}</span>
+                                <div class="sala-info">
+                                    <span class="sala-membros">${sala.membrosCount || 0}/10</span>
+                                    ${sala.comSenha ? '<span class="sala-cadeado"></span>' : ''}
+                                </div>
+                            </div>
+                        </div>`;
+            }).join('');
+        });
+    }
+
+    document.getElementById('form-criar-sala').addEventListener('submit', async (e) => {
+        e.preventDefault();
+        const nome = document.getElementById('criar-sala-nome').value.trim();
+        const senha = document.getElementById('criar-sala-senha').value;
+        if (!nome) return;
+
+        await addDoc(collection(db, "salas"), {
+            nome: nome,
+            senha: senha,
+            comSenha: !!senha,
+            criador: currentUser.uid,
+            membros: [currentUser.uid],
+            membrosCount: 1,
+            timestamp: serverTimestamp()
+        });
+        
+        mudarVisaoChat('lista');
+        e.target.reset();
+    });
+
+    document.getElementById('salas-list-container').addEventListener('click', async e => {
+        const card = e.target.closest('.sala-card');
+        if (!card) return;
+
+        const salaId = card.dataset.id;
+        const salaRef = doc(db, "salas", salaId);
+        const salaDoc = await getDoc(salaRef);
+        const salaData = salaDoc.data();
+
+        if (salaData.membrosCount >= 10) {
+            alert("Esta sala está cheia!");
+            return;
         }
-    }
 
-    function loadAndDisplaySelectedAvatar() { 
-        const savedAvatarUrl = localStorage.getItem(CONFIG.localStorageKeyAvatar) || CONFIG.defaultAvatar; 
-        selectedAvatarDisplay.src = savedAvatarUrl; 
-    }
+        if (card.dataset.senha === 'true') {
+            const senhaDigitada = prompt("Esta sala é protegida por senha. Digite a senha:");
+            if (senhaDigitada !== salaData.senha) {
+                alert("Senha incorreta!");
+                return;
+            }
+        }
+        
+        entrarNaSala(salaId, salaData.nome);
+    });
 
-    function populateAvatarGrid() {
-        avatarGrid.innerHTML = '';
-        CONFIG.avatarImageLinks.forEach(url => {
-            const avatarWrapper = document.createElement('div'); 
-            avatarWrapper.className = 'avatar-option';
-            avatarWrapper.innerHTML = `<img src="${url}" alt="Opção de Avatar">`;
-            avatarGrid.appendChild(avatarWrapper);
+    async function entrarNaSala(salaId, nome) {
+        currentSalaId = salaId;
+        const salaRef = doc(db, "salas", salaId);
+        const salaDoc = await getDoc(salaRef);
+        const membrosAtuais = salaDoc.data().membros || [];
+
+        if (!membrosAtuais.includes(currentUser.uid)) {
+            await updateDoc(salaRef, {
+                membros: [...membrosAtuais, currentUser.uid],
+                membrosCount: increment(1)
+            });
+        }
+        
+        document.getElementById('chat-room-title').textContent = nome;
+        mudarVisaoChat('chat');
+
+        const q = query(collection(db, "salas", salaId, "mensagens"), orderBy("timestamp"));
+        unsubscribeChatMessages = onSnapshot(q, (querySnapshot) => {
+            const messagesContainer = document.getElementById('chat-messages');
+            messagesContainer.innerHTML = '';
+            querySnapshot.forEach(doc => {
+                const msg = doc.data();
+                const isMe = msg.uid === currentUser.uid;
+                messagesContainer.innerHTML += `
+                    <div class="chat-message ${isMe ? 'user-message' : 'bot-message'}">
+                        ${!isMe ? `<div class="message-author">${msg.nick}</div>` : ''}
+                        ${msg.texto}
+                    </div>`;
+            });
+            messagesContainer.scrollTop = messagesContainer.scrollHeight;
         });
-    }
-
-    function openAvatarSelectionModal() {
-        populateAvatarGrid();
-        const currentSrc = selectedAvatarDisplay.src;
-        avatarGrid.querySelectorAll('img').forEach(img => { 
-            img.parentElement.classList.toggle('selected-preview', img.src === currentSrc); 
-        });
-        openModal(avatarModalOverlay);
-    }
-
-    function openModuleModalById(moduleId) {
-        const module = CONFIG.modulesData[moduleId];
-        if (!module) return;
-        moduleModalTitle.textContent = module.title; 
-        moduleModalButtonsContainer.innerHTML = module.actions.map(action => 
-            `<button class="button-action" data-url="${action.url}">${action.name}</button>`
-        ).join('');
-        openModal(moduleModalOverlay);
     }
     
+    async function sairDaSala() {
+        if (unsubscribeChatMessages) unsubscribeChatMessages();
+        
+        const salaRef = doc(db, "salas", currentSalaId);
+        const salaDoc = await getDoc(salaRef);
+        const membrosAtuais = salaDoc.data().membros || [];
+
+        const novosMembros = membrosAtuais.filter(uid => uid !== currentUser.uid);
+        await updateDoc(salaRef, {
+            membros: novosMembros,
+            membrosCount: increment(-1)
+        });
+
+        currentSalaId = null;
+        mudarVisaoChat('lista');
+    }
+
+    document.getElementById('send-chat-button').addEventListener('click', enviarMensagemChat);
+    document.getElementById('chat-input').addEventListener('keydown', e => { if(e.key === 'Enter') enviarMensagemChat(); });
+    
+    async function enviarMensagemChat() {
+        const input = document.getElementById('chat-input');
+        const texto = input.value.trim();
+        if (!texto || !currentSalaId) return;
+
+        await addDoc(collection(db, "salas", currentSalaId, "mensagens"), {
+            texto: texto,
+            uid: currentUser.uid,
+            nick: currentUser.nick,
+            timestamp: serverTimestamp()
+        });
+        input.value = '';
+    }
+
+    // Navegação no Modal de Chat
+    document.getElementById('btn-mostrar-criar-sala').addEventListener('click', () => mudarVisaoChat('criar'));
+    document.getElementById('btn-voltar-para-lista').addEventListener('click', () => mudarVisaoChat('lista'));
+    document.getElementById('btn-sair-do-chat').addEventListener('click', sairDaSala);
+
+    function mudarVisaoChat(visao) { // 'lista', 'criar', 'chat'
+        [salasListaView, salasCriarView, chatRoomView].forEach(v => v.classList.remove('active'));
+        if (visao === 'lista') salasListaView.classList.add('active');
+        else if (visao === 'criar') salasCriarView.classList.add('active');
+        else if (visao === 'chat') chatRoomView.classList.add('active');
+    }
+
+    // --- FUNÇÕES DE UI E MANIPULADORES DE EVENTOS PRESERVADOS ---
+    function setupStaticUI() {
+        // Seletores de Elementos
+        const bodyElement = document.body;
+        const modulesContainer = document.getElementById('modulesContainer');
+        
+        // Modais e Overlays
+        const avatarModalOverlay = document.getElementById('avatarModalOverlay');
+        const moduleModalOverlay = document.getElementById('moduleModalOverlay');
+        
+        // Conteúdo dos Modais
+        const avatarGrid = document.getElementById('avatarGrid');
+        const moduleModalTitle = document.getElementById('moduleModalTitle');
+        const moduleModalButtonsContainer = document.getElementById('moduleModalButtonsContainer');
+
+        // Configurações e Dados Estáticos
+        const CONFIG = {
+            darkModeKey: 'userDarkModePreference_estudante_v2',
+            localStorageKeyAvatar: 'estudanteSelectedAvatar_v2',
+            avatarImageLinks: ["https://i.imgur.com/K0Ssp28.png", "https://i.imgur.com/rJXV7uR.png", "https://i.imgur.com/DaNsN4q.png", "https://i.imgur.com/DXkoPU0.png", "https://i.imgur.com/QrKFUxs.png"],
+            get defaultAvatar() { return this.avatarImageLinks[0]; },
+            modulesData: {
+                'materias': { 
+                    title: 'Matérias', 
+                    icon: `<svg class="section-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"></path><path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"></path></svg>`,
+                    actions: [ { name: 'Tutoria', url: '#' }, { name: 'Morfologia', url: 'm3morfo3etp.html' }, { name: 'APS', url: '#' }, { name: 'Fármaco', url: '#' }, { name: 'Epidemiologia', url: '#' }, { name: 'Semiologia', url: '#' } ]
+                },
+                'calculadora': { 
+                    title: 'Calculadora', 
+                    icon: `<svg class="section-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="4" y="2" width="16" height="20" rx="2" ry="2"></rect><line x1="8" y1="6" x2="16" y2="6"></line><line x1="16" y1="14" x2="16" y2="18"></line><line x1="16" y1="10" x2="12" y2="10"></line><line x1="8" y1="10" x2="8" y2="10"></line><line x1="8" y1="14" x2="8" y2="18"></line><line x1="12" y1="14" x2="12" y2="18"></line></svg>`,
+                    directAction: true,
+                    actions: [ { name: 'Abrir Calculadora', url: '#' } ]
+                },
+                'chat': {
+                    title: 'Chat de Dúvidas',
+                    icon: `<svg class="section-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"></path></svg>`,
+                    isChat: true,
+                    actions: []
+                },
+            }
+        };
+
+        // Geração dos Módulos Estáticos
+        modulesContainer.innerHTML = ''; 
+        Object.keys(CONFIG.modulesData).forEach((moduleId, index) => {
+            const module = CONFIG.modulesData[moduleId];
+            const card = document.createElement('div');
+            card.className = 'module-card';
+            card.dataset.moduleId = moduleId;
+            if (moduleId === 'materias') card.style.gridColumn = '1 / -1';
+            card.style.animationDelay = `${index * 60}ms`;
+            card.innerHTML = `${module.icon}<h3 class="module-card-title">${module.title}</h3>`;
+            modulesContainer.appendChild(card);
+        });
+
+        // Lógica dos Módulos Estáticos
+        modulesContainer.addEventListener('click', (event) => {
+            const card = event.target.closest('.module-card');
+            if (!card) return;
+            const moduleId = card.dataset.moduleId;
+            if (moduleId === 'chat') {
+                openModal(salasChatModal);
+                return;
+            }
+            const module = CONFIG.modulesData[moduleId];
+            if (!module || module.isChat) return;
+
+            if (module.directAction) { alert('Ação direta não configurada neste exemplo'); }
+            else {
+                moduleModalTitle.textContent = module.title; 
+                moduleModalButtonsContainer.innerHTML = module.actions.map(action => `<button class="button-action" onclick="alert('Link para ${action.name} não configurado')">${action.name}</button>`).join('');
+                openModal(moduleModalOverlay);
+            }
+        });
+
+        // Dark Mode
+        document.getElementById('darkModeToggle').addEventListener('click', () => {
+            const isDark = bodyElement.classList.toggle('dark-mode');
+            localStorage.setItem(CONFIG.darkModeKey, isDark);
+        });
+        const savedDarkMode = localStorage.getItem(CONFIG.darkModeKey);
+        if(savedDarkMode === 'true') bodyElement.classList.add('dark-mode');
+
+        // Avatar
+        document.getElementById('headerAvatarContainer').addEventListener('click', () => {
+             avatarGrid.innerHTML = CONFIG.avatarImageLinks.map(url => `<div class="avatar-option"><img src="${url}" alt="Opção de Avatar"></div>`).join('');
+            openModal(avatarModalOverlay);
+        });
+        avatarGrid.addEventListener('click', (event) => {
+            const img = event.target.closest('img');
+            if (!img) return;
+            const url = img.src;
+            localStorage.setItem(CONFIG.localStorageKeyAvatar, url); 
+            document.getElementById('selectedAvatarDisplay').src = url;
+            closeModal(avatarModalOverlay);
+        });
+        document.getElementById('selectedAvatarDisplay').src = localStorage.getItem(CONFIG.localStorageKeyAvatar) || CONFIG.defaultAvatar;
+        
+        // Fechar Modais
+        document.getElementById('closeAvatarModalBtn').addEventListener('click', () => closeModal(avatarModalOverlay));
+        document.getElementById('closeModuleModalBtn').addEventListener('click', () => closeModal(moduleModalOverlay));
+    }
+    
+    // --- FUNÇÕES AUXILIARES ---
+    function openModal(modalOverlay) { document.body.classList.add('modal-active'); modalOverlay.style.display = 'flex'; }
+    function closeModal(modalOverlay) { document.body.classList.remove('modal-active'); modalOverlay.style.display = 'none'; }
+    let sliderIntervals = {};
     function iniciarSlider(containerSelector, slideSelector, interval) {
+        if (sliderIntervals[containerSelector]) clearInterval(sliderIntervals[containerSelector]);
         const container = document.querySelector(containerSelector);
-        if (!container) return null;
+        if (!container) return;
         const slides = container.querySelectorAll(slideSelector);
-        if (slides.length <= 1) {
-            if (slides.length === 1) slides[0].classList.add('active');
-            return null;
-        }
+        if (slides.length <= 1) { if (slides.length === 1) slides[0].classList.add('active'); return; }
         let currentSlideIndex = 0;
+        slides.forEach(s => s.classList.remove('active'));
         slides[currentSlideIndex].classList.add('active');
-        return setInterval(() => {
+        sliderIntervals[containerSelector] = setInterval(() => {
             slides[currentSlideIndex].classList.remove('active');
             currentSlideIndex = (currentSlideIndex + 1) % slides.length;
             slides[currentSlideIndex].classList.add('active');
         }, interval);
     }
-
-    function openDepoimentosModal() {
-        const depoimentosHtml = CONFIG.depoimentosData.map(depoimento => {
-            const estrelasHtml = `<div class="depoimento-estrelas">${Array(5).fill('').map((_, i) => `<span class="${i < depoimento.estrelas ? 'cheia' : ''}">★</span>`).join('')}</div>`;
-            return `<div class="depoimento-modal-slide">
-                        <img src="${depoimento.foto}" alt="Foto de ${depoimento.nome}" class="depoimento-avatar">
-                        <p class="depoimento-texto">“${depoimento.comentario}”</p>
-                        ${estrelasHtml}
-                        <p class="depoimento-nome">- ${depoimento.nome}</p>
+    
+    function criarSlideDepoimento(depoimento, tipo) { // tipo = 'card' ou 'modal'
+        const estrelasHtml = `<div class="depoimento-estrelas">${Array(5).fill('').map((_, i) => `<span class="${i < depoimento.estrelas ? 'cheia' : ''}">★</span>`).join('')}</div>`;
+        if (tipo === 'card') {
+            return `<div class="depoimento-slide">
+                        <div><img src="${depoimento.avatar}" alt="Foto de ${depoimento.nick}" class="depoimento-avatar"><p class="depoimento-texto">“${depoimento.comentario}”</p></div>
+                        <div class="depoimento-autor-info">${estrelasHtml}<p class="depoimento-nome">- ${depoimento.nick}</p></div>
                     </div>`;
-        }).join('');
-        depoimentosModalSlider.innerHTML = depoimentosHtml;
-        openModal(depoimentosModalOverlay);
-        if (modalSliderIntervalId) clearInterval(modalSliderIntervalId);
-        modalSliderIntervalId = iniciarSlider('#depoimentosModalSlider', '.depoimento-modal-slide', 5000);
-    }
-    
-    function addMessageToChat(message, sender) {
-        const messageElement = document.createElement('div');
-        messageElement.classList.add('chat-message', `${sender}-message`);
-        messageElement.textContent = message;
-        chatMessages.appendChild(messageElement);
-        chatMessages.scrollTop = chatMessages.scrollHeight;
-    }
-
-    function handleSendMessage() {
-        const messageText = chatInput.value.trim();
-        if (messageText === '') return;
-        addMessageToChat(messageText, 'user');
-        chatInput.value = '';
-        setTimeout(() => {
-            const responses = ["Ótima pergunta!", "Também fiquei com essa dúvida.", "Acredito que a resposta esteja no material da aula 3.", "Vamos pesquisar sobre isso."];
-            addMessageToChat(responses[Math.floor(Math.random() * responses.length)], 'bot');
-        }, 1500);
-    }
-    
-    function openChatModal() {
-        openModal(aiChatModalOverlay);
-        chatTitle.textContent = "Chat de Dúvidas";
-        if (chatMessages.children.length === 0) {
-            setTimeout(() => { addMessageToChat("Bem-vindos ao chat de dúvidas!", 'bot'); }, 500);
         }
-    }
-
-    // ===================================================================
-    // INICIALIZAÇÃO E EVENT LISTENERS
-    // ===================================================================
-    function initializePage() {
-        const savedDarkMode = localStorage.getItem(CONFIG.darkModeKey);
-        applyDarkMode(savedDarkMode === 'true' || (savedDarkMode === null && window.matchMedia('(prefers-color-scheme: dark)').matches));
-        
-        homepageCard.style.display = 'block';
-        updateUserGreeting();
-        generateModuleCards();
-        generateFeedbackCard();
-        generateRankingAlunos();
-        loadAndDisplaySelectedAvatar();
-        iniciarSlider('#depoimentosSliderContainer', '.depoimento-slide', 7000);
+        return `<div class="depoimento-modal-slide">
+                    <img src="${depoimento.avatar}" alt="Foto de ${depoimento.nick}" class="depoimento-avatar">
+                    <p class="depoimento-texto">“${depoimento.comentario}”</p>${estrelasHtml}<p class="depoimento-nome">- ${depoimento.nick}</p>
+                </div>`;
     }
     
-    // --- Event Listeners Globais ---
-    document.getElementById('darkModeToggle').addEventListener('click', () => applyDarkMode(!bodyElement.classList.contains('dark-mode')));
-    document.getElementById('headerAvatarContainer').addEventListener('click', openAvatarSelectionModal);
-    document.getElementById('logoutButton').addEventListener('click', () => alert('Funcionalidade de Logout acionada!'));
-    
-    // --- Listeners para Fechar Modais ---
-    document.getElementById('closeIframeButton').addEventListener('click', () => closeModal(iframeViewer));
-    document.getElementById('closeAvatarModalBtn').addEventListener('click', () => closeModal(avatarModalOverlay));
-    document.getElementById('closeModuleModalBtn').addEventListener('click', () => closeModal(moduleModalOverlay));
-    document.getElementById('closeChatModalBtn').addEventListener('click', () => closeModal(aiChatModalOverlay));
-    document.getElementById('closeDepoimentosModalBtn').addEventListener('click', () => {
-        closeModal(depoimentosModalOverlay);
-        if (modalSliderIntervalId) clearInterval(modalSliderIntervalId);
+    // Listeners de fechar modais
+    document.getElementById('logoutButton').addEventListener('click', () => signOut(auth));
+    document.getElementById('closeDepoimentosModalBtn').addEventListener('click', () => closeModal(depoimentosModalOverlay));
+    document.getElementById('closeSalasChatModalBtn').addEventListener('click', () => closeModal(salasChatModal));
+
+    // Navegação tabs do modal de depoimentos
+    document.querySelectorAll('.depoimentos-tab').forEach(tab => {
+        tab.addEventListener('click', () => {
+            const tabName = tab.dataset.tab;
+            document.querySelectorAll('.depoimentos-tab').forEach(t => t.classList.remove('active'));
+            tab.classList.add('active');
+            document.querySelectorAll('.depoimentos-tab-content').forEach(c => c.classList.remove('active'));
+            document.getElementById(`tab-${tabName}`).classList.add('active');
+        });
     });
 
-    // --- Listeners para o Chat ---
-    document.getElementById('send-chat-button').addEventListener('click', handleSendMessage);
-    chatInput.addEventListener('keydown', (event) => {
-        if (event.key === 'Enter') {
-            event.preventDefault();
-            handleSendMessage();
-        }
-    });
-
-    // --- Delegação de Eventos ---
-    modulesContainer.addEventListener('click', (event) => {
-        const card = event.target.closest('.module-card');
-        if (!card) return;
-        const moduleId = card.dataset.moduleId;
-        const module = CONFIG.modulesData[moduleId];
-        if (!module) return;
-
-        if (module.isChat) openChatModal();
-        else if (module.directAction) openIframeViewer(module.actions[0].url);
-        else openModuleModalById(moduleId);
-    });
-
-    feedbackContainer.addEventListener('click', (event) => {
+    // Listener para abrir modal de depoimentos
+    document.getElementById('feedbackContainer').addEventListener('click', (event) => {
         if (event.target.closest('.module-card[data-module-id="depoimentos"]')) {
-            openDepoimentosModal();
+            openModal(depoimentosModalOverlay);
         }
     });
-    
-    moduleModalButtonsContainer.addEventListener('click', (event) => {
-        const button = event.target.closest('.button-action');
-        if (button && button.dataset.url) { 
-            closeModal(moduleModalOverlay); 
-            setTimeout(() => openIframeViewer(button.dataset.url), 200); 
-        }
-    });
-    
-    avatarGrid.addEventListener('click', (event) => {
-        const img = event.target.closest('img');
-        if (!img) return;
-        const url = img.src;
-        localStorage.setItem(CONFIG.localStorageKeyAvatar, url); 
-        selectedAvatarDisplay.src = url;
-        closeModal(avatarModalOverlay);
-    });
 
-    // --- Inicia a Página ---
-    initializePage();
-});
-</script>
-
-<script>
-// ===================================================================================
-// ARQUIVO DE CONFIGURAÇÃO - PORTAL DO ESTUDANTE
-// ===================================================================================
-const CONFIG = 
-{
-    darkModeKey: 'userDarkModePreference_estudante_v2',
-    localStorageKeyAvatar: 'estudanteSelectedAvatar_v2',
-    avatarImageLinks: [ 
-        "https://i.imgur.com/K0Ssp28.png", "https://i.imgur.com/rJXV7uR.png", "https://i.imgur.com/DaNsN4q.png",
-        "https://i.imgur.com/DXkoPU0.png", "https://i.imgur.com/QrKFUxs.png"
-    ],
-    get defaultAvatar() { return this.avatarImageLinks[0]; },
-    
-    rankingAlunos: [
-        { nome: 'Juliana Ribeiro', pontos: 1250, top: true }, { nome: 'Ricardo Gomes', pontos: 1180, top: false },
-        { nome: 'Beatriz Almeida', pontos: 1150, top: false }, { nome: 'Carlos Matos', pontos: 980, top: false },
-        { nome: 'Alex Silva', pontos: 950, top: false },
-    ],
-
-    depoimentosData: [
-        { 
-            nome: 'Juliana Ribeiro', foto: 'https://i.imgur.com/DXkoPU0.png',
-            comentario: 'Esta plataforma me ajudou muito a organizar meus estudos para Morfologia. Os flashcards são ótimos! Recomendo montar um cronograma de revisão semanal baseado nos temas mais difíceis, faz toda a diferença.',
-            estrelas: 5
-        },
-        { 
-            nome: 'Ricardo Gomes', foto: 'https://i.imgur.com/DaNsN4q.png',
-            comentario: 'O chat de dúvidas é uma ferramenta incrível para estudar em grupo, especialmente na véspera das provas de Fármaco. Conseguimos resolver várias questões juntos e tirar dúvidas de última hora que foram essenciais.',
-            estrelas: 5
-        },
-        { 
-            nome: 'Beatriz Almeida', foto: 'https://i.imgur.com/rJXV7uR.png', 
-            comentario: 'Excelente ferramenta! Consegui melhorar minhas notas em 20% depois que comecei a usar o ranking para me motivar. A competição saudável com os colegas definitivamente me incentivou a estudar mais e com mais foco.',
-            estrelas: 4
-        },
-    ],
-
-    modulesData: {
-        'materias': { 
-            title: 'Matérias', 
-            icon: `<svg class="section-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"></path><path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"></path></svg>`,
-            actions: [ 
-                { name: 'Tutoria', url: '#' }, { name: 'Morfologia', url: 'm3morfo3etp.html' },
-                { name: 'APS', url: '#' }, { name: 'Fármaco', url: '#' },
-                { name: 'Epidemiologia', url: '#' }, { name: 'Semiologia', url: '#' }
-            ]
-        },
-        'calculadora': { 
-            title: 'Calculadora', 
-            icon: `<svg class="section-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="4" y="2" width="16" height="20" rx="2" ry="2"></rect><line x1="8" y1="6" x2="16" y2="6"></line><line x1="16" y1="14" x2="16" y2="18"></line><line x1="16" y1="10" x2="12" y2="10"></line><line x1="8" y1="10" x2="8" y2="10"></line><line x1="8" y1="14" x2="8" y2="18"></line><line x1="12" y1="14" x2="12" y2="18"></line></svg>`,
-            directAction: true,
-            actions: [ { name: 'Abrir Calculadora', url: 'https://www.google.com/search?q=calculadora' } ]
-        },
-        'chat': {
-            title: 'Chat de Dúvidas',
-            icon: `<svg class="section-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"></path></svg>`,
-            isChat: true,
-            actions: []
-        },
-        'depoimentos': { 
-            title: 'Dicas & Feedback', 
-            specialStyle: 'depoimentos', 
-            icon: '', 
-            actions: [] 
-        },
-        'erroUrl': {
-            title: 'URL Inválida',
-            actions: [{ name: 'A URL para este recurso não foi configurada corretamente. Tente novamente mais tarde.', url: '#' }]
-        }
-    }
-};
 </script>
 
 </body>
