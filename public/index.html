@@ -28,25 +28,13 @@
 </head>
 <body>
     <div id="loading-container" class="container">
-        <div class="loading-content">
-            <h1 class="title">Verificando...</h1>
-            <p class="subtitle">Aguarde um momento.</p>
-        </div>
+        <div class="loading-content"><h1 class="title">Verificando...</h1><p class="subtitle">Aguarde um momento.</p></div>
     </div>
     <div id="login-container" class="container hidden">
         <form id="access-form" novalidate>
-            <div class="header">
-                <h1 class="title">Primeiro Acesso</h1>
-                <p class="subtitle">Escolha seu Nick e insira o PIN de acesso</p>
-            </div>
-            <div class="form-group">
-                <label for="user-nick">Seu Nick (Apelido)</label>
-                <input type="text" id="user-nick" required>
-            </div>
-            <div class="form-group">
-                <label for="developer-pin">PIN do Desenvolvedor</label>
-                <input type="password" id="developer-pin" required>
-            </div>
+            <div class="header"><h1 class="title">Primeiro Acesso</h1><p class="subtitle">Escolha seu Nick e insira o PIN de acesso</p></div>
+            <div class="form-group"><label for="user-nick">Seu Nick (Apelido)</label><input type="text" id="user-nick" required></div>
+            <div class="form-group"><label for="developer-pin">PIN do Desenvolvedor</label><input type="password" id="developer-pin" required></div>
             <button type="submit" id="login-button" class="btn btn-primary">Entrar</button>
             <div id="login-error" class="error-message"></div>
         </form>
@@ -63,8 +51,7 @@
             projectId: "etapa-ec59e",
             storageBucket: "etapa-ec59e.firebasestorage.app",
             messagingSenderId: "368438766739",
-            appId: "1:368438766739:web:cd6b1979986bc2dca9b166",
-            measurementId: "G-8083KG85B6"
+            appId: "1:368438766739:web:cd6b1979986bc2dca9b166"
         };
 
         const app = initializeApp(firebaseConfig);
@@ -78,12 +65,8 @@
         const loginError = document.getElementById('login-error');
 
         onAuthStateChanged(auth, user => {
-            if (user) {
-                window.location.href = 'home.html';
-            } else {
-                loadingContainer.classList.add('hidden');
-                loginContainer.classList.remove('hidden');
-            }
+            if (user) { window.location.href = 'home.html'; } 
+            else { loadingContainer.classList.add('hidden'); loginContainer.classList.remove('hidden'); }
         });
 
         accessForm.addEventListener('submit', async (e) => {
@@ -95,53 +78,30 @@
             const nick = document.getElementById('user-nick').value.trim();
             const pin = document.getElementById('developer-pin').value;
 
-            if (!nick || !pin) {
-                showError("Todos os campos são obrigatórios.");
-                return;
-            }
+            if (!nick || !pin) { showError("Todos os campos são obrigatórios."); return; }
 
             let tempUser = null;
             try {
-                // 1. Verificar se o Nick já existe (isso podemos fazer no cliente)
                 const usersCollectionRef = collection(db, 'usuarios');
                 const q = query(usersCollectionRef, where('nick', '==', nick));
                 const querySnapshot = await getDocs(q);
+                if (!querySnapshot.empty) { showError("Este Nick já está em uso."); return; }
 
-                if (!querySnapshot.empty) {
-                    showError("Este Nick já está em uso. Por favor, escolha outro.");
-                    return;
-                }
-
-                // 2. Criar um usuário anônimo TEMPORÁRIO para obter um UID
                 const userCredential = await signInAnonymously(auth);
                 tempUser = userCredential.user;
 
-                // 3. Tentar criar o documento no Firestore com o PIN
-                // A REGRA DE SEGURANÇA VAI VALIDAR O PIN AQUI NO SERVIDOR!
                 await setDoc(doc(db, "usuarios", tempUser.uid), {
                     nick: nick,
                     createdAt: serverTimestamp(),
                     status: "ativo",
-                    developerPin: pin // Enviamos o PIN para a regra validar
+                    developerPin: pin
                 });
 
-                // 4. Se chegou até aqui, o PIN estava correto e o documento foi criado.
-                // O onAuthStateChanged vai nos redirecionar para a home.html.
-
             } catch (error) {
-                console.error("Erro no processo de login:", error);
+                if (error.code === 'permission-denied') { showError("PIN do Desenvolvedor incorreto."); } 
+                else { showError("Ocorreu um erro. Tente novamente."); }
                 
-                // Se o erro for de "Permissão negada", significa que o PIN estava errado.
-                if (error.code === 'permission-denied') {
-                    showError("PIN do Desenvolvedor incorreto.");
-                } else {
-                    showError("Ocorreu um erro. Tente novamente.");
-                }
-
-                // IMPORTANTE: Se a validação falhou, deletamos o usuário anônimo temporário.
-                if (tempUser) {
-                    await deleteUser(tempUser).catch(delErr => console.error("Erro ao limpar usuário temporário", delErr));
-                }
+                if (tempUser) { await deleteUser(tempUser).catch(err => console.error("Falha ao limpar user temp", err)); }
             }
         });
 
